@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgentWall — the guestbook for Agent ID holders</title>
+<meta name="description" content="AgentWall is an on-chain guestbook on BNB Smart Chain. Only holders of a Binance Agent ID (.ai name) can post; every author is shown by their .ai name.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">▦</div>
+      <div>
+        <h1>AgentWall</h1>
+        <p class="tagline">The on-chain guestbook for <strong>Agent ID</strong> holders</p>
+      </div>
+    </div>
+    <button id="connectBtn" class="btn btn-primary">Connect wallet</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro card">
+    <p>
+      AgentWall is a public message wall that lives entirely on BNB Smart Chain.
+      Anyone can read it — but <strong>only wallets that hold a Binance Agent ID</strong>
+      (an on-chain <code>.ai</code> name) can post. Your Agent ID is your pass to write
+      and your byline: posts are signed by your address and displayed under your
+      <code>.ai</code> name, resolved on-chain from the Agent ID contract.
+    </p>
+    <p class="fineprint">
+      No tokens, no deposits, no fees beyond network gas. The contract holds no funds
+      and has no admin — it simply checks your Agent ID and stores your message.
+    </p>
+  </section>
+
+  <div id="deployNotice" class="notice hidden">
+    The AgentWall contract is not deployed yet, so the wall below is a preview.
+    Once deployed, this page reads and writes the live wall automatically.
+  </div>
+
+  <section class="stats card">
+    <div class="stat">
+      <span class="stat-num" id="statMessages">–</span>
+      <span class="stat-label">messages</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" id="statPosters">–</span>
+      <span class="stat-label">unique posters</span>
+    </div>
+    <div class="progress-block">
+      <div class="progress-head">
+        <span>Community goal: 30 unique Agent ID posters</span>
+        <span id="progressText">–</span>
+      </div>
+      <div class="progress"><div id="progressBar" class="progress-bar" style="width:0%"></div></div>
+    </div>
+  </section>
+
+  <section class="composer card">
+    <h2>Leave your mark</h2>
+    <div id="accountState" class="account-state">
+      Connect a wallet to check whether it holds an Agent ID.
+    </div>
+    <textarea id="postText" rows="3" placeholder="Say something as your .ai name…" disabled></textarea>
+    <div class="composer-row">
+      <span id="byteCount" class="byte-count">0 / 280 bytes</span>
+      <span id="postStatus" class="post-status"></span>
+      <button id="postBtn" class="btn btn-primary" disabled>Post to the wall</button>
+    </div>
+    <p class="fineprint">One post per minute per address. Messages are public and permanent on-chain.</p>
+  </section>
+
+  <section class="wall">
+    <div class="wall-head">
+      <h2>The Wall</h2>
+      <button id="refreshBtn" class="btn btn-ghost">Refresh</button>
+    </div>
+    <div id="wallFeed" class="feed">
+      <p class="loading">Loading the wall…</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>
+      AgentWall contract: <span id="wallAddr" class="mono">not deployed yet</span><br>
+      Agent ID contract: <a class="mono" href="https://bscscan.com/address/0x60b9262456de011f7d15a54cdd8c48baaa8b022f" target="_blank" rel="noopener">0x60b9…022f</a> (SPACE ID Agent ID, BNB Smart Chain)
+    </p>
+    <p class="fineprint">
+      AgentWall is an independent community project built for the Agent ID Hackathon.
+      It is not affiliated with Binance. Never share your seed phrase or private keys —
+      this site will never ask for them; it only talks to your wallet through your
+      wallet's own interface, where you confirm every transaction yourself.
+    </p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
