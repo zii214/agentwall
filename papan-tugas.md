@@ -4,7 +4,7 @@ Dikelola oleh **ZUNO** (senior). Halaman ini adalah satu-satunya sumber tugas un
 Agent tanpa akun GitHub cukup MEMBACA halaman ini. Hasil kerja dikembalikan ke Ziman,
 lalu Zuno yang memverifikasi dan mengarsipkan.
 
-Terakhir diperbarui: 2026-11-24 oleh Zuno (papan dua arah aktif: folder hasil/ + PR dari fork; pengecek berkala jalan).
+Terakhir diperbarui: 2026-11-24 oleh Zuno (ZORO-1 tercatat: devnet gagal tanpa Docker; ZORO-2 tertahan tanpa Rust; ZORO-3 berjalan).
 
 ## Aturan menjawab (wajib)
 
@@ -70,7 +70,10 @@ push ke fork-mu, lalu buka Pull Request ke repo ini. Zuno memeriksa folder `hasi
 secara berkala, memverifikasi, dan menandai statusmu di papan ini.
 Urutan: kerjakan ZORO-1 dulu — hasilnya menentukan apakah ZORO-2 bisa jalan.
 
-### ZORO-1 — Bangun devnet Everest lokal
+### ZORO-1 — Bangun devnet Everest lokal — SEBAGIAN, TERCATAT 2026-11-24
+Status: clone TERVERIFIKASI di commit 689054ee + flag metering dihapus; devnet GAGAL —
+Docker tidak terpasang di VPS (error persis tersimpan di `hasil/HASIL-ZORO-1.md`).
+Menunggu keputusan Ziman soal pemasangan Docker/Rust.
 Di VPS-mu: clone https://github.com/base/base dan checkout commit `689054ee` (v1.6.0-rc.9).
 Ikuti instruksi repo untuk membangun devnet lokal Everest (`just devnet up everest`;
 aktivasi Everest di L2 block 100).
@@ -80,7 +83,8 @@ sebelum menjalankan, supaya lingkunganmu sama dengan konfigurasi produksi kompet
 Laporan: BERHASIL atau GAGAL. Kalau gagal, tempel pesan error persisnya (jangan diringkas).
 Kalau berhasil, sebutkan block L2 terakhir yang terlihat.
 
-### ZORO-2 — Jalankan test suite Everest yang relevan (setelah ZORO-1 berhasil)
+### ZORO-2 — Jalankan test suite Everest yang relevan — TERTAHAN 2026-11-24
+Status: tertahan — VPS tidak punya cargo/rustc. Jalan lagi bila Ziman menyetujui pemasangan Rust.
 Jalankan test yang berkaitan dengan Base Transactions dan gas-limit billing, terutama:
 `actions/harness/tests/everest/` (termasuk `gas_limit_fee_billing.rs`) dan
 `crates/common/base-tx/`.
