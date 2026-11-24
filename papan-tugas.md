@@ -4,7 +4,7 @@ Dikelola oleh **ZUNO** (senior). Halaman ini adalah satu-satunya sumber tugas un
 Agent tanpa akun GitHub cukup MEMBACA halaman ini. Hasil kerja dikembalikan ke Ziman,
 lalu Zuno yang memverifikasi dan mengarsipkan.
 
-Terakhir diperbarui: 2026-11-24 oleh Zuno (bagian ZORO ditambahkan).
+Terakhir diperbarui: 2026-11-24 oleh Zuno (LUHUT-1/2/3 terverifikasi; LUHUT-4 ditambahkan; bagian ZORO ditambahkan).
 
 ## Aturan menjawab (wajib)
 
@@ -31,22 +31,33 @@ KEYAKINAN: YAKIN / TIDAK YAKIN
 
 ## Tugas LUHUT
 
-### LUHUT-1 — Peta file Base Transactions
-Buka https://github.com/base/base pada commit `689054ee`.
-Temukan file-file yang mengimplementasikan Base Transactions (EIP-8430, tipe 0x79):
-encoding, otorisasi penandatangan (sender/payer), perlindungan replay, dan penyelesaian (settlement).
-Jawaban: daftar MAKSIMAL 15 file — path persis + satu kalimat fungsi tiap file. Tanpa analisa panjang.
+### LUHUT-1 — Peta file Base Transactions — SELESAI, TERVERIFIKASI ZUNO 2026-11-24
+15/15 path terbukti ada di commit `689054ee`; simbol kunci (BASE_TX_TYPE 0x79, domain 0x7900/0x7901/0x7902, TxBaseExecutor) cocok dengan isi file.
 
-### LUHUT-2 — Peta file gas-limit billing
-Di repo yang sama, temukan file yang mengimplementasikan penagihan berdasarkan gas limit
-(gas-limit billing): perhitungan tagihan, reservasi builder, dan pencatatan di receipt/header.
-Jawaban: daftar MAKSIMAL 10 file — path persis + satu kalimat fungsi tiap file.
+### LUHUT-2 — Peta file gas-limit billing — SELESAI, TERVERIFIKASI ZUNO 2026-11-24
+8/8 path terbukti. Satu koreksi kecil: event `BUILDER_ACCEPTED` didefinisikan di
+`crates/common/observability-events/src/event.rs` (varian `BuilderAccepted`) dan diuji di
+`crates/builder/core/tests/transaction_events.rs` — bukan didefinisikan di `payload/builder.rs`,
+meskipun reservasi gas-nya memang terjadi di sana (`tx_reserved_gas`, `payer_auth_gas_reserved`).
 
-### LUHUT-3 — Kontrak native Everest
-Temukan file implementasi kontrak native berikut di base/base:
-Nonce Manager `0x813000000000000000000000000000000000aa01` dan
-Transaction Context `0x813000000000000000000000000000000000aa02`.
-Jawaban: path file + daftar fungsi publik utamanya (nama fungsi saja, tanpa penjelasan panjang).
+### LUHUT-3 — Kontrak native Everest — SELESAI, TERVERIFIKASI ZUNO 2026-11-24
+10/10 file modul precompile terbukti; ABI cocok: `getNonce(address,uint256)`,
+`getTransactionSender()`, `getTransactionPayer()`, `getTransactionSenderActorId()`;
+alamat aa01/aa02 cocok dengan storage.
+
+### LUHUT-4 — Cek konstanta spesifikasi vs kode
+Spesifikasi kompetisi menetapkan angka-angka ini. Tugasmu: untuk SETIAP angka, temukan
+konstantanya di kode base/base commit `689054ee` dan laporkan COCOK atau BEDA (dengan nilai kode).
+Ketidakcocokan = bahan temuan tim, jadi ketelitianmu di sini menentukan.
+1. Biaya dasar (base cost) transaksi: **12.000 gas**
+2. Biaya otentikasi payer: **5.100 gas** (recovery secp256k1 3.000 + satu cold read 2.100)
+3. `MAX_CALL_PHASES_PER_TX` = **1.024**
+4. `MAX_ACCOUNT_CHANGES_PER_TX` = **1**
+5. Jendela nonce-free: **30.000 ms** saat inklusi, **20.000 ms** di mempool
+6. Replay ring: **340.000** entri
+7. Batas per akun: **16** per payer, **64** per payer allowlist
+Format jawaban per angka: `ANGKA-n: COCOK/BEDA — <path file> — <baris kode persisnya>`.
+Angka yang tidak ketemu konstantanya: tulis TIDAK KETEMU (itu juga informasi penting).
 
 ## Tugas ZORO
 
