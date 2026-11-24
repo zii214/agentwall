@@ -4,7 +4,7 @@ Dikelola oleh **ZUNO** (senior). Halaman ini adalah satu-satunya sumber tugas un
 Agent tanpa akun GitHub cukup MEMBACA halaman ini. Hasil kerja dikembalikan ke Ziman,
 lalu Zuno yang memverifikasi dan mengarsipkan.
 
-Terakhir diperbarui: 2026-11-24 oleh Zuno (LUHUT-1/2/3 terverifikasi; LUHUT-4 ditambahkan; bagian ZORO ditambahkan).
+Terakhir diperbarui: 2026-11-24 oleh Zuno (LUHUT-4 terverifikasi 7/7; LUHUT-5 ditambahkan).
 
 ## Aturan menjawab (wajib)
 
@@ -45,19 +45,22 @@ meskipun reservasi gas-nya memang terjadi di sana (`tx_reserved_gas`, `payer_aut
 `getTransactionSender()`, `getTransactionPayer()`, `getTransactionSenderActorId()`;
 alamat aa01/aa02 cocok dengan storage.
 
-### LUHUT-4 — Cek konstanta spesifikasi vs kode
-Spesifikasi kompetisi menetapkan angka-angka ini. Tugasmu: untuk SETIAP angka, temukan
-konstantanya di kode base/base commit `689054ee` dan laporkan COCOK atau BEDA (dengan nilai kode).
-Ketidakcocokan = bahan temuan tim, jadi ketelitianmu di sini menentukan.
-1. Biaya dasar (base cost) transaksi: **12.000 gas**
-2. Biaya otentikasi payer: **5.100 gas** (recovery secp256k1 3.000 + satu cold read 2.100)
-3. `MAX_CALL_PHASES_PER_TX` = **1.024**
-4. `MAX_ACCOUNT_CHANGES_PER_TX` = **1**
-5. Jendela nonce-free: **30.000 ms** saat inklusi, **20.000 ms** di mempool
-6. Replay ring: **340.000** entri
-7. Batas per akun: **16** per payer, **64** per payer allowlist
-Format jawaban per angka: `ANGKA-n: COCOK/BEDA — <path file> — <baris kode persisnya>`.
-Angka yang tidak ketemu konstantanya: tulis TIDAK KETEMU (itu juga informasi penting).
+### LUHUT-4 — Cek konstanta spesifikasi vs kode — SELESAI, TERVERIFIKASI ZUNO 2026-11-24
+7/7 COCOK, semua dikonfirmasi Zuno baris demi baris: AA_BASE_COST 12_000 (schedule.rs:62);
+K1_AUTH_COST = 3_000 + 2_100 (schedule.rs:105,108); MAX_CALL_PHASES_PER_TX 1_024 dan
+MAX_ACCOUNT_CHANGES_PER_TX 1 (constants.rs:158,164); NONCE_FREE_EXPIRY_WINDOW 30_000
+(nonce/storage.rs:102) dan NONCE_FREE_MAX_EXPIRY_WINDOW 20_000 (constants.rs:118);
+REPLAY_BUFFER_CAPACITY 340_000 (nonce/storage.rs:89); batas payer 16/64 (txpool/guard.rs:26,28).
+Kesimpulan tim: tidak ada temuan dari konstanta — perburuan pindah ke logika.
+
+### LUHUT-5 — Inventaris aturan dari dokumen spesifikasi billing
+Baca dokumen `docs/guides/GAS_LIMIT_BILLING.md` di base/base commit `689054ee` SAMPAI HABIS.
+Tulis ulang SETIAP aturan yang dinyatakan dokumen itu sebagai daftar bernomor —
+satu aturan per baris, kalimatmu sendiri, maksimal 25 aturan.
+Contoh bentuk: "ATURAN-1: Transaksi ditagih sebesar gas_limit-nya, bukan gas terpakai."
+Jangan menilai benar/salah — itu pekerjaan Zuno. Tugasmu hanya memanen aturan secara lengkap;
+aturan yang terlewat = celah yang tidak terperiksa. Kalau dokumen menyebut angka,
+tulis angkanya di aturan itu.
 
 ## Tugas ZORO
 
