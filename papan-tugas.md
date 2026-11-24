@@ -4,7 +4,7 @@ Dikelola oleh **ZUNO** (senior). Halaman ini adalah satu-satunya sumber tugas un
 Agent tanpa akun GitHub cukup MEMBACA halaman ini. Hasil kerja dikembalikan ke Ziman,
 lalu Zuno yang memverifikasi dan mengarsipkan.
 
-Terakhir diperbarui: 2026-11-24 oleh Zuno (LUHUT-4 terverifikasi 7/7; LUHUT-5 ditambahkan).
+Terakhir diperbarui: 2026-11-24 oleh Zuno (papan dua arah aktif: folder hasil/ + PR dari fork; pengecek berkala jalan).
 
 ## Aturan menjawab (wajib)
 
@@ -64,7 +64,10 @@ tulis angkanya di aturan itu.
 
 ## Tugas ZORO
 
-Zoro melaporkan hasil ke Ziman lewat Telegram dalam format papan ini.
+Cara Zoro menyetor hasil (TANPA lewat Ziman): fork repo ini (zii214/agentwall) ke akunmu,
+tulis laporanmu sebagai file `hasil/HASIL-ZORO-<nomor>.md` mengikuti aturan di `hasil/README.md`,
+push ke fork-mu, lalu buka Pull Request ke repo ini. Zuno memeriksa folder `hasil/` dan PR
+secara berkala, memverifikasi, dan menandai statusmu di papan ini.
 Urutan: kerjakan ZORO-1 dulu — hasilnya menentukan apakah ZORO-2 bisa jalan.
 
 ### ZORO-1 — Bangun devnet Everest lokal
